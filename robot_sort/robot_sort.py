@@ -96,10 +96,14 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
+        # loop through the robot's list
         for i in range(len(self._list) - 1):
+            # to compare elements in the list, we need to loop through again
+            # This time, we're only focused on the right most portion of the list, as i grows.
             for j in range(0, len(self._list) - i - 1):
+                # check to see if the current element is greater than the next element
                 if self._list[j] > self._list[j + 1]:
+                    # if so, swap them
                     self._list[j], self._list[j + 1] = self._list[j + 1], self._list[j]
 
 if __name__ == "__main__":
