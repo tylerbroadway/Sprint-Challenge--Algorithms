@@ -96,16 +96,27 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # loop through the robot's list
-        for i in range(len(self._list) - 1):
-            # to compare elements in the list, we need to loop through again
-            # This time, we're only focused on the right most portion of the list, as i grows.
-            for j in range(0, len(self._list) - i - 1):
-                # check to see if the current element is greater than the next element
-                if self._list[j] > self._list[j + 1]:
-                    # if so, swap them
-                    self._list[j], self._list[j + 1] = self._list[j + 1], self._list[j]
+        self.set_light_on()
 
+        while self.light_is_on():
+            self.set_light_off()
+            while self.can_move_right():
+                self.swap_item()
+                self.move_right()
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    self.move_left()
+                    self.swap_item()
+                    self.move_left()
+                    self.set_light_on()
+                else:
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+            if self.light_is_on():
+                while self.can_move_left():
+                    self.move_left()
+        
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
